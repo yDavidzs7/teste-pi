@@ -1,0 +1,198 @@
+<div class="login-page">
+
+  <div class="login-container">
+
+    <div class="login-box" *ngIf="tela === 'login'">
+
+      <h1>Acesse sua conta</h1>
+
+      <div class="tipo-usuario">
+        <button
+          type="button"
+          [class.ativo]="tipoUsuario === 'cliente'"
+          (click)="selecionarTipo('cliente')">
+          Cliente
+        </button>
+
+        <button
+          type="button"
+          [class.ativo]="tipoUsuario === 'admin'"
+          (click)="selecionarTipo('admin')">
+          Administrador
+        </button>
+      </div>
+
+      <form (ngSubmit)="entrar()">
+
+        <div class="campo">
+          <label for="emailLogin">E-mail</label>
+
+          <input
+            id="emailLogin"
+            type="email"
+            name="emailLogin"
+            [(ngModel)]="emailLogin"
+            placeholder="Digite seu e-mail"
+            autocomplete="username"
+            required>
+        </div>
+
+        <div class="campo">
+          <label for="senhaLogin">Senha</label>
+
+          <input
+            id="senhaLogin"
+            type="password"
+            name="senhaLogin"
+            [(ngModel)]="senhaLogin"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required>
+        </div>
+
+        <p
+          *ngIf="mensagem"
+          class="mensagem"
+          [class.erro]="tipoMensagem === 'erro'"
+          [class.sucesso]="tipoMensagem === 'sucesso'">
+          {{ mensagem }}
+        </p>
+
+        <button type="submit" class="btn-principal">
+          ENTRAR
+        </button>
+
+      </form>
+
+      <p class="cadastro">
+        Não tem uma conta?
+        <button
+          type="button"
+          class="link"
+          (click)="abrirCadastro()">
+          Cadastre-se
+        </button>
+      </p>
+
+      <p class="aviso-admin" *ngIf="tipoUsuario === 'admin'">
+        Acesso de demonstração: admin@rebirth.com
+      </p>
+
+    </div>
+
+
+    <div class="login-box" *ngIf="tela === 'cadastro'">
+
+      <h1>Crie sua conta</h1>
+
+      <p class="subtitulo">
+        Cadastre-se na Rebirth Supplements
+      </p>
+
+      <form (ngSubmit)="cadastrar()">
+
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+
+          <input
+            id="nome"
+            type="text"
+            name="nome"
+            [(ngModel)]="nome"
+            placeholder="Digite seu nome"
+            autocomplete="name"
+            required>
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+
+          <input
+            id="email"
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="Digite seu e-mail"
+            autocomplete="email"
+            required>
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+
+          <input
+            id="senha"
+            type="password"
+            name="senha"
+            [(ngModel)]="senha"
+            placeholder="Mínimo de 6 caracteres"
+            autocomplete="new-password"
+            minlength="6"
+            required>
+        </div>
+
+        <p
+          *ngIf="mensagem"
+          class="mensagem"
+          [class.erro]="tipoMensagem === 'erro'"
+          [class.sucesso]="tipoMensagem === 'sucesso'">
+          {{ mensagem }}
+        </p>
+
+        <button type="submit" class="btn-principal">
+          CADASTRAR
+        </button>
+
+      </form>
+
+      <p class="cadastro">
+        Já tem uma conta?
+        <button
+          type="button"
+          class="link"
+          (click)="voltarLogin()">
+          Fazer login
+        </button>
+      </p>
+
+    </div>
+
+
+    <div class="login-box area-logada" *ngIf="tela === 'area'">
+
+      <span class="selo">REBIRTH SUPPLEMENTS</span>
+
+      <h1>Bem-vindo, {{ usuarioLogado }}!</h1>
+
+      <p *ngIf="perfilLogado === 'cliente'">
+        Você entrou na sua conta de cliente.
+      </p>
+
+      <p *ngIf="perfilLogado === 'admin'">
+        Você entrou no modo administrador.
+      </p>
+
+      <div class="acoes-area" *ngIf="perfilLogado === 'admin'">
+        <p>
+          Aqui ficará a área de manutenção dos produtos.
+        </p>
+      </div>
+
+      <div class="acoes-area" *ngIf="perfilLogado === 'cliente'">
+        <p>
+          Aqui ficará a área de compras e seus produtos.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="btn-principal"
+        (click)="sair()">
+        SAIR DA CONTA
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
